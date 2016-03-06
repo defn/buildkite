@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+function bootstrap {
+  local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
+  source "$shome/script/profile"
+
+  local ver_buildkite='2.1.6'
+  local url_buildkite_Darwin="https://github.com/buildkite/agent/releases/download/v${ver_buildkite}/buildkite-agent-darwin-amd64-${ver_buildkite}.tar.gz"
+  local url_buildkite_Linux="https://github.com/buildkite/agent/releases/download/v${ver_buildkite}/buildkite-agent-linux-amd64-${ver_buildkite}.tar.gz"
+
+  local nm_url="url_buildkite_$(uname -s)"
+  local url_buildkite="${!nm_url}"
+  local nm_buildkite="buildkit-agent-${ver_buildkite}-$(uname -s).tar.gz"
+
+  cache curl "$nm_buildkite" "$url_buildkite"
+  mkdir -p "$shome/bin"
+  mkdir -p "$shome/vendor/buildkite-${ver_buildkite}"
+  (cd "$shome/vendor/buildkite-${ver_buildkite}" && tar xvfz "${BASEBOX_CACHE}/curl/$nm_buildkite")
+  ln -nfs "../vendor/buildkite-${ver_buildkite}/buildkite-agent" "$shome/bin/"
+}
+
+bootstrap
