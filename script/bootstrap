@@ -4,7 +4,7 @@ function bootstrap {
   local shome="$(cd -P -- "$(dirname -- "$BASH_SOURCE")/.." && pwd -P)"
   source "$shome/script/profile"
 
-  local ver_buildkite='2.1.6'
+  local ver_buildkite='2.1.9'
   local url_buildkite_Darwin="https://github.com/buildkite/agent/releases/download/v${ver_buildkite}/buildkite-agent-darwin-amd64-${ver_buildkite}.tar.gz"
   local url_buildkite_Linux="https://github.com/buildkite/agent/releases/download/v${ver_buildkite}/buildkite-agent-linux-amd64-${ver_buildkite}.tar.gz"
 
